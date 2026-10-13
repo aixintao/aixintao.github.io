@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" role="img">
+  <title>上桌计费聊天示意图</title>
+  <rect width="760" height="480" rx="18" fill="#161311"/>
+  <text x="28" y="36" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">聊天示意图 · 上桌与账单</text>
+  <circle cx="692" cy="78" r="16" fill="#ff6b57"/>
+  <text x="692" y="83" text-anchor="middle" fill="#1a100e" font-family="Microsoft YaHei, sans-serif" font-size="12">南</text>
+  <text x="666" y="70" text-anchor="end" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="12">小南</text>
+  <rect x="548" y="86" width="118" height="46" rx="14" fill="#ff6b57"/>
+  <text x="607" y="115" text-anchor="middle" fill="#1a100e" font-family="Cascadia Mono, Consolas, monospace" font-size="18">/上桌</text>
+  <circle cx="44" cy="164" r="16" fill="#f6f1ea"/>
+  <text x="44" y="169" text-anchor="middle" fill="#1a100e" font-family="Microsoft YaHei, sans-serif" font-size="12">桃</text>
+  <text x="70" y="156" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="12">小爱心桃</text>
+  <rect x="70" y="172" width="460" height="88" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="90" y="206" fill="#ffb1a3" font-family="Cascadia Mono, Consolas, monospace" font-size="15">[四口 · 四口1] 上桌结果</text>
+  <text x="90" y="236" fill="#f6f1ea" font-family="Microsoft YaHei, sans-serif" font-size="16">小南  已入座</text>
+  <circle cx="692" cy="300" r="16" fill="#ff6b57"/>
+  <text x="692" y="305" text-anchor="middle" fill="#1a100e" font-family="Microsoft YaHei, sans-serif" font-size="12">南</text>
+  <rect x="548" y="308" width="118" height="46" rx="14" fill="#ff6b57"/>
+  <text x="607" y="337" text-anchor="middle" fill="#1a100e" font-family="Cascadia Mono, Consolas, monospace" font-size="18">/当前</text>
+  <circle cx="44" cy="392" r="16" fill="#f6f1ea"/>
+  <text x="44" y="397" text-anchor="middle" fill="#1a100e" font-family="Microsoft YaHei, sans-serif" font-size="12">桃</text>
+  <rect x="70" y="384" width="500" height="68" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="90" y="414" fill="#f6f1ea" font-family="Microsoft YaHei, sans-serif" font-size="16">在场计时中</text>
+  <text x="90" y="436" fill="#c9bdb2" font-family="Microsoft YaHei, sans-serif" font-size="14">半庄结束后，从会员余额里结算</text>
+</svg>

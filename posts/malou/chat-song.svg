@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" role="img">
+  <title>今日舞萌聊天示意图</title>
+  <rect width="760" height="500" rx="18" fill="#161311"/>
+  <text x="28" y="36" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">聊天示意图 · 音游</text>
+  <circle cx="692" cy="78" r="16" fill="#ff6b57"/>
+  <text x="692" y="83" text-anchor="middle" fill="#1a100e" font-family="Microsoft YaHei, sans-serif" font-size="12">南</text>
+  <text x="666" y="70" text-anchor="end" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="12">小南</text>
+  <rect x="430" y="86" width="236" height="46" rx="14" fill="#ff6b57"/>
+  <text x="548" y="115" text-anchor="middle" fill="#1a100e" font-family="Cascadia Mono, Consolas, monospace" font-size="18">/今日舞萌</text>
+  <circle cx="44" cy="168" r="16" fill="#f6f1ea"/>
+  <text x="44" y="173" text-anchor="middle" fill="#1a100e" font-family="Microsoft YaHei, sans-serif" font-size="12">桃</text>
+  <text x="70" y="160" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="12">小爱心桃</text>
+  <rect x="70" y="176" width="500" height="286" rx="16" fill="#241e1a" stroke="#3a312b"/>
+  <text x="94" y="214" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="26">今日舞萌</text>
+  <text x="94" y="242" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="13">按人和日期生成，每天一张</text>
+  <rect x="94" y="264" width="220" height="78" rx="12" fill="#1c1916"/>
+  <text x="110" y="296" fill="#ff6b57" font-family="Microsoft YaHei, sans-serif" font-size="15">宜</text>
+  <text x="146" y="296" fill="#f6f1ea" font-family="Microsoft YaHei, sans-serif" font-size="16">推一把紫谱</text>
+  <text x="110" y="322" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="14">忌  通宵连打</text>
+  <rect x="330" y="264" width="216" height="78" rx="12" fill="#1c1916"/>
+  <text x="346" y="296" fill="#ffb1a3" font-family="Microsoft YaHei, sans-serif" font-size="15">幸运曲</text>
+  <text x="346" y="322" fill="#f6f1ea" font-family="Microsoft YaHei, sans-serif" font-size="16">曲库中随机一首</text>
+  <text x="94" y="376" fill="#9a8d82" font-family="Microsoft YaHei, sans-serif" font-size="13">今日麻将手牌</text>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="16" text-anchor="middle">
+    <rect x="94" y="390" width="52" height="48" rx="6" fill="#f6f1ea"/><text x="120" y="420" fill="#1a100e">中</text>
+    <rect x="156" y="390" width="52" height="48" rx="6" fill="#f6f1ea"/><text x="182" y="420" fill="#c23b32">發</text>
+    <rect x="218" y="390" width="52" height="48" rx="6" fill="#f6f1ea"/><text x="244" y="420" fill="#1a100e">白</text>
+  </g>
+</svg>

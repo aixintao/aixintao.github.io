@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>malou-bot · aixintao</title>
+  <meta name="description" content="武理麻楼的 QQ 机器人。预约、上桌计费、舞萌查歌，以及按 R 值升降的段位。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">QQ 机器人 · NoneBot2 · OneBot</p>
+    <h1>malou-bot</h1>
+    <p class="prose">武理麻楼群里用的机器人。玩家在 QQ 里发指令，它负责查歌、登记预约、把人安排上桌，并在半庄之后结算点数和段位。</p>
+
+    <figure class="shot">
+      <img src="/posts/malou/structure.svg" alt="malou-bot 结构：QQ 消息经过 OneBot 和 NoneBot2，分到音游、麻楼、雀魂和杂项">
+      <figcaption>入口是 bot.py。四个插件分工，计算和画图放在 src/libraries。</figcaption>
+    </figure>
+
+    <section class="prose" aria-labelledby="song-title">
+      <h2 id="song-title">音游</h2>
+      <p>舞萌的查歌、随歌、定数和分数线都在。今日运势会带一首幸运曲和一副麻将手牌。b40、b50 和六维底力走查分器。中二、音击、Arcaea、Phigros、旋转音律各有成绩卡。谱面笔记用 /maino 读写。</p>
+      <figure class="shot">
+        <img src="/posts/malou/chat-song.svg" alt="发送 /今日舞萌 后收到运势卡片的示意图">
+        <figcaption>/今日舞萌。卡片内容每天按人和日期重新生成。</figcaption>
+      </figure>
+    </section>
+
+    <section class="prose" aria-labelledby="table-title">
+      <h2 id="table-title">预约和上桌</h2>
+      <p>/ml 登记麻将，/mlw 登记音游。时间写成到场、离场，第三个数是人数。人到店以后，/入场、/上桌、/下桌、/当前、/退场 分开进门、入座和结算。四口机按半庄计费，余额记在会员账上。</p>
+      <figure class="shot">
+        <img src="/posts/malou/chat-book.svg" alt="/ml 18 22 3 预约成功，以及预约时间条的示意图">
+        <figcaption>18 点到 22 点，3 个人。/mls 把同一天的预约画成时间条。</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/posts/malou/chat-table.svg" alt="/上桌 之后查看 /当前 账单的示意图">
+        <figcaption>上桌才开始坐在机台上。/当前 看这场计时，/退场 才离店。</figcaption>
+      </figure>
+    </section>
+
+    <section class="prose" aria-labelledby="rank-title">
+      <h2 id="rank-title">段位</h2>
+      <p>对局写入 Pt。R 值变化后，段位从新人升到御武理，一共 17 档。初段以下只升不降。猫猫率、被飞率、最近十场和虚拟股票是同一套账上的别的看法。</p>
+      <figure class="shot">
+        <img src="/posts/malou/rank.svg" alt="段位从新人到御武理的阶梯，初段以下只升不降">
+        <figcaption>升段看 R 值门槛。这张图不代表某一个人的成绩。</figcaption>
+      </figure>
+    </section>
+
+    <p class="more"><a href="/blog/malou-bot.html">博客里的完整一篇</a></p>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>给麻楼写的机器人 · aixintao</title>
+  <meta name="description" content="QQ 群里的 malou-bot：查歌、预约、上桌计费，还有自己的段位。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="alternate" type="application/rss+xml" title="aixintao" href="/blog/feed.xml">
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/" aria-current="page">博客</a></li>
+        <li><a href="/#works">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/blog/">返回博客</a>
+<h1>给麻楼写的机器人</h1>
+<p class="article-meta"><time datetime="2026-10-14">2026.10.14</time></p>
+<article class="prose">
+<p>麻楼人一多，约时间、看谁在桌上、半庄打完怎么算钱，全靠群里一句一句喊会乱。malou-bot 就是为这件事长出来的。它跑在 QQ 上，底子是 NoneBot2，音游查歌那部分从 Diving-fish 的 mai-bot 改过来，麻楼自己的预约、计费和段位是后加的。</p>
+<figure class="shot">
+  <img src="../posts/malou/structure.svg" alt="malou-bot 结构：QQ 消息经过 OneBot 和 NoneBot2，分到音游、麻楼、雀魂和杂项">
+  <figcaption>一句指令先进 QQ，再由 OneBot 交给 NoneBot2。插件按事情拆开，真正算数和画图的代码在 libraries 里。</figcaption>
+</figure>
+
+<h2>查一首歌，看今天手气</h2>
+<p>群里最常用的还是舞萌。<code>/今日舞萌</code> 按人和日期出一张卡片：宜什么、忌什么、一首幸运曲，再配一副当天的麻将手牌。想指定难度，就用 <code>/随个紫14</code> 这种说法。查谱面是 <code>/紫id11451</code>，打到某个分数还允许多少失误，用 <code>/分数线</code>。</p>
+<p>绑定查分器之后，可以出 b40、b50，也能看六维底力。中二、音击、Arcaea、Phigros、旋转音律也各有一张成绩卡。谱面笔记记在 <code>/maino</code> 里，谁都可以往上补一句。</p>
+<figure class="shot">
+  <img src="../posts/malou/chat-song.svg" alt="聊天示意图：发送 /今日舞萌 后，机器人回复运势卡片">
+  <figcaption>卡片是示意图。真机上的幸运曲和手牌会按当天重新生成。</figcaption>
+</figure>
+
+<h2>先预约，到了再上桌</h2>
+<p>麻将和音游的预约是两条指令。<code>/ml 18 22 3</code> 表示 18 点到 22 点、3 个人来打麻将；<code>/ml 包夜</code> 是过夜。音游用 <code>/mlw</code>，规则差不多，只是不接受包桌。约完用 <code>/mls</code> 看图。人数和时间写错了，它会把格式说清楚，不会默默记错。</p>
+<p>人到了店里，<code>/入场</code> 只是进门。<code>/上桌</code> 才会坐到四口机上，也可以点名机台，或一次带上最多四个人。<code>/下桌</code> 离开桌子，人还算在店里。<code>/当前</code> 看这场计时，<code>/退场</code> 才离店结算。半庄的账从会员余额里扣。</p>
+<figure class="shot">
+  <img src="../posts/malou/chat-book.svg" alt="聊天示意图：/ml 18 22 3 预约成功，/mls 显示 18 点到 22 点的三人预约">
+  <figcaption>到场、离场、人数按这个顺序写。只写一个钟点时，默认往后约三小时。</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../posts/malou/chat-table.svg" alt="聊天示意图：/上桌 后坐上四口机，/当前 查看在场账单">
+  <figcaption>上桌和预约是两件事。人可以先约晚上，到店再入座。</figcaption>
+</figure>
+
+<h2>打完还有段位</h2>
+<p>每半庄记一笔 Pt。R 值跟着对局变，段位再跟着 R 值走，从新人、各级，到初段、十段，最高是御武理。初段以下只升不降，再往上，跌破门槛就会降段。另外能看猫猫率、被飞率、最近十场，也能把牌手当成股票，用 Pt 买卖。</p>
+<p>雀魂牌谱屋和天凤牌理是旁边的工具：丢一个雀魂昵称，或一串 <code>123m456p789s</code> 这样的手牌，它给出战绩或进张。</p>
+<figure class="shot">
+  <img src="../posts/malou/rank.svg" alt="段位从新人排到御武理，初段以下只升不降">
+  <figcaption>17 档段位。数字是升段所需的 R 值，不是某一位牌手的成绩。</figcaption>
+</figure>
+
+<p>帮别人决定吃什么、扔一只漂流瓶，这些也在。<code>/help</code> 会把常用指令画成一张图。更细的麻楼菜单在 <code>/ml</code>。</p>
+<p>作品页上有一份更短的说明：<a href="/works/malou-bot.html">malou-bot</a>。</p>
+</article>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>

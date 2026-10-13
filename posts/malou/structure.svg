@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" role="img">
+  <title>malou-bot 结构</title>
+  <rect width="880" height="640" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">结构示意图</text>
+  <text x="36" y="74" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">从一句指令到一张图</text>
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M440 156 V186"/>
+    <path d="M440 250 V280"/>
+    <path d="M440 344 V390"/>
+    <path d="M132 390 H748"/>
+    <path d="M132 390 V408"/>
+    <path d="M336 390 V408"/>
+    <path d="M540 390 V408"/>
+    <path d="M746 390 V408"/>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="250" y="96" width="380" height="60" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="132" fill="#f6f1ea" font-size="18">QQ 群聊 / 私聊</text>
+    <rect x="250" y="186" width="380" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="214" fill="#f6f1ea" font-size="18">OneBot v11</text>
+    <text x="440" y="236" fill="#c9bdb2" font-size="13">把 QQ 消息交给机器人</text>
+    <rect x="250" y="280" width="380" height="64" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="308" fill="#f6f1ea" font-size="18">NoneBot2 · bot.py</text>
+    <text x="440" y="330" fill="#ffd2cb" font-size="13">加载 src/plugins</text>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="36" y="408" width="192" height="72" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="132" y="438" fill="#f6f1ea" font-size="16">音游</text>
+    <text x="132" y="460" fill="#c9bdb2" font-size="12">查歌 · 运势 · b40</text>
+    <rect x="240" y="408" width="192" height="72" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="336" y="438" fill="#f6f1ea" font-size="16">麻楼</text>
+    <text x="336" y="460" fill="#c9bdb2" font-size="12">预约 · 上桌 · 计费</text>
+    <rect x="444" y="408" width="192" height="72" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="540" y="438" fill="#f6f1ea" font-size="16">雀魂 / 牌理</text>
+    <text x="540" y="460" fill="#c9bdb2" font-size="12">牌谱屋 · 进张</text>
+    <rect x="648" y="408" width="196" height="72" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="746" y="438" fill="#f6f1ea" font-size="16">杂项</text>
+    <text x="746" y="460" fill="#c9bdb2" font-size="12">吃什么 · 漂流瓶</text>
+  </g>
+  <rect x="36" y="508" width="808" height="100" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="56" y="546" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">src/libraries</text>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#f6f1ea">
+    <text x="56" y="578">图像渲染</text>
+    <text x="196" y="578">预约计时</text>
+    <text x="336" y="578">Pt / R 值 / 段位</text>
+    <text x="540" y="578">会员背包</text>
+    <text x="700" y="578">虚拟股票</text>
+  </g>
+</svg>

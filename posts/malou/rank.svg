@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" role="img">
+  <title>麻楼段位结构</title>
+  <rect width="880" height="280" rx="18" fill="#161311"/>
+  <text x="32" y="40" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">结构示意图 · 段位</text>
+  <text x="32" y="74" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="26">R 值往上走，段位跟着走</text>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="32" y="104" width="116" height="64" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="90" y="132" fill="#f6f1ea" font-size="16">新人</text>
+    <text x="90" y="152" fill="#9a8d82" font-size="12">R 0</text>
+    <rect x="164" y="104" width="168" height="64" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="248" y="132" fill="#f6f1ea" font-size="16">5级 到 1级</text>
+    <text x="248" y="152" fill="#9a8d82" font-size="12">只升不降</text>
+    <rect x="348" y="104" width="120" height="64" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="408" y="132" fill="#f6f1ea" font-size="16">初段</text>
+    <text x="408" y="152" fill="#9a8d82" font-size="12">R 1350</text>
+    <rect x="484" y="104" width="200" height="64" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="584" y="132" fill="#f6f1ea" font-size="16">二段 到 十段</text>
+    <text x="584" y="152" fill="#9a8d82" font-size="12">达标升，跌破降</text>
+    <rect x="700" y="96" width="148" height="80" rx="12" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="774" y="130" fill="#ffd2cb" font-size="18">御武理</text>
+    <text x="774" y="154" fill="#ffb1a3" font-size="12">R 2000</text>
+  </g>
+  <path d="M148 136 H164 M332 136 H348 M468 136 H484 M684 136 H700" stroke="#ff6b57" stroke-width="1.5"/>
+  <text x="32" y="214" fill="#c9bdb2" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="15">一共 17 档。每半庄打完会重算 R 值，再决定留段、升段或降段。</text>
+  <text x="32" y="242" fill="#9a8d82" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">初段以下不会掉段。猫猫率、被飞率和虚拟股票是另外的榜。</text>
+</svg>
