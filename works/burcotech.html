@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Burcotech 2024 · aixintao</title>
+  <meta name="description" content="2024 年和 Mayflare 及朋友们一起做的 Minecraft 生存服。我负责恶民的数值，并写了一部分 Skript。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">Minecraft · Paper 1.20.4 · 2024</p>
+    <h1>Burcotech 2024</h1>
+    <p class="prose">和同学 Mayflare，以及另外几位朋友一起做的生存服。公告上写的是大城邦的殖民挑战，良民对恶民。地图、插件和其余系统是一起搭的。我负责恶民这条线的数值，并写了一部分 Skript：关多久、赏金怎么涨、黑市怎么兑。</p>
+
+    <figure class="shot">
+      <img src="/works/burcotech/loop.svg" alt="从良民确认成为在逃恶民，死亡后入狱；赏金按在逃天数计算，黑市每天傍晚开放">
+      <figcaption>恶民换到的是入侵和赏金，交出去的是交易、传送和自己的领地。</figcaption>
+    </figure>
+
+    <section class="prose" aria-labelledby="loop-title">
+      <h2 id="loop-title">良民和恶民</h2>
+      <p>转职要先看清契约，30 秒内确认才生效。在逃之后，名字变红，坐标按钟点向全服通报。不能付款、不能上拍卖和商店，也不能自己开传送。原有领地清掉，新的领地建不了。别人的箱子和方块，只有那位领主在线才挖得动。</p>
+      <p>死了会把背包掉在原地，再送进监狱。若是玩家击杀，在逃赏金打给击杀者。赏金从在逃满一天起算，天数乘 30，上限 5000 银币，不满一天是 0。战斗标记 20 秒，标记还在时掉线或跨世界，按脱战处死。</p>
+      <p>出狱有三条路：刑期走完、走完监狱里的黑曜石之路，或跑到忏悔之阶。放出去一次，释放次数加一，下次再被抓，关得更久。黑市只在 18:00 到 22:00 开门，用来把打过标记的赃物换成黑市币。恶民免费进，良民进门收 1000 银币。打烊后里面的人送回主城。</p>
+      <figure class="shot">
+        <img src="/works/burcotech/sentence.svg" alt="第一次入狱是 30 加 15 乘天数，放过一次和两次之后底数翻倍，再往后按天数连乘">
+        <figcaption>单位是分钟。天数是这一次在逃了多久，不是角色创建了多久。</figcaption>
+      </figure>
+      <p>黑市汇率另开一张表。泥土、圆石这类不给价。铁锭 3，铁块 27；钻石 50，钻石块 450，整块按九倍锭来。自定义武器和 RPG 材料各自一行，不跟原版矿物绑在一起。汇率小于等于 0 的物品不能销。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="stack-title">
+      <h2 id="stack-title">数写在哪里</h2>
+      <p>服是 Paper 1.20.4。世界用 Multiverse 分开：主城、监狱、黑市，以及湖、沙和赛博那几张 RPG 图。领地是 Residence，钱是 Vault，怪和材料里有 MythicMobs。恶民的限制、入狱和黑市进出写在 Skript 里，刑期、赏金和汇率放在旁边的 yaml，改表不必把句子重写一遍。</p>
+      <p>RPG 图里，良民打良民的伤害取消；只要有一方是恶民，伤害照算。良民死在这些图里，认作 RPG 材料的物品大约掉一半。恶民死亡不走这张表，仍然是全掉落再入狱。</p>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>

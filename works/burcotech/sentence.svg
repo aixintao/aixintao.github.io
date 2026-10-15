@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" role="img">
+  <title>再犯刑期</title>
+  <rect width="880" height="460" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">数值示意图 · 入狱分钟</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">放出去一次，下次关得更久</text>
+  <text x="36" y="112" fill="#c9bdb2" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">天数是这次在逃了多久。释放次数是以前成功出狱的次数。</text>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="18" fill="#f6f1ea">
+    <rect x="36" y="140" width="808" height="56" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="56" y="175">第一次</text>
+    <text x="280" y="175">30 + 15 × 天数</text>
+    <rect x="36" y="208" width="808" height="56" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="56" y="243">放过 1 次</text>
+    <text x="280" y="243">60 + 30 × 天数</text>
+    <rect x="36" y="276" width="808" height="56" rx="12" fill="#241e1a" stroke="#3a312b"/>
+    <text x="56" y="311">放过 2 次</text>
+    <text x="280" y="311">120 + 60 × 天数</text>
+    <rect x="36" y="344" width="808" height="80" rx="12" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="56" y="378">再往后</text>
+    <text x="280" y="378">(240 + 90 × 天数) × (1 + 0.01 × 天数) 的乘方</text>
+    <text x="280" y="404" fill="#ffd2cb" font-size="14">指数是「释放次数 − 2」</text>
+  </g>
+</svg>
