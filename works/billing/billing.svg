@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" role="img">
+  <title>分档计费举例</title>
+  <rect width="880" height="640" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">计费示意图 · 举例</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">100 分钟，两档，再打折</text>
+  <text x="36" y="112" fill="#c9bdb2" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">数字是为了把算法走通。程序里的价目存在 standard.dat，不在这张图上。</text>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <rect x="36" y="136" width="390" height="88" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="56" y="170" fill="#f6f1ea" font-size="16">起步 · 0 分钟起</text>
+    <text x="56" y="198" fill="#c9bdb2" font-size="14">每 30 分钟 1.00 元</text>
+    <rect x="454" y="136" width="390" height="88" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="474" y="170" fill="#f6f1ea" font-size="16">加时 · 60 分钟起</text>
+    <text x="474" y="198" fill="#ffd2cb" font-size="14">每 15 分钟 2.00 元</text>
+  </g>
+  <rect x="36" y="248" width="808" height="16" rx="8" fill="#2a2420"/>
+  <rect x="36" y="248" width="484" height="16" rx="8" fill="#ff6b57"/>
+  <rect x="520" y="248" width="324" height="16" rx="8" fill="#ffb1a3"/>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13" fill="#c9bdb2">
+    <text x="36" y="288">0</text>
+    <text x="500" y="288">60 分钟</text>
+    <text x="760" y="288">100 分钟</text>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#f6f1ea">
+    <text x="36" y="340">0 到 60 分钟</text>
+    <text x="560" y="340">ceil(60 / 30) × 1.00 = 2.00 元</text>
+    <text x="36" y="378">60 到 100 分钟</text>
+    <text x="560" y="378">ceil(40 / 15) × 2.00 = 6.00 元</text>
+    <text x="36" y="416">合计</text>
+    <text x="560" y="416">8.00 元</text>
+    <text x="36" y="454" fill="#ffb1a3">会员 85 折</text>
+    <text x="560" y="454" fill="#ffb1a3">6.80 元</text>
+  </g>
+  <rect x="36" y="488" width="808" height="112" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="56" y="530" fill="#f6f1ea" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="18">记进余额的是 680 分</text>
+  <text x="56" y="566" fill="#c9bdb2" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="15">卡上的余额是整数分。显示时再除以 100，避免用浮点一分一分地漂。</text>
+</svg>

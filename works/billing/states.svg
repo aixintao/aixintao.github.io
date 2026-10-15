@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" role="img">
+  <title>卡的状态</title>
+  <rect width="880" height="420" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">状态示意图</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">一张卡先问状态，再问钱</text>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="36" y="112" width="220" height="88" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="146" y="148" fill="#f6f1ea" font-size="18">未上机</text>
+    <text x="146" y="174" fill="#c9bdb2" font-size="13">余额要大于 0</text>
+    <rect x="330" y="112" width="220" height="88" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="148" fill="#f6f1ea" font-size="18">上机中</text>
+    <text x="440" y="174" fill="#ffd2cb" font-size="13">记下上机时间</text>
+    <rect x="624" y="112" width="220" height="88" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="734" y="148" fill="#f6f1ea" font-size="18">下机结算</text>
+    <text x="734" y="174" fill="#c9bdb2" font-size="13">扣分，次数加一</text>
+  </g>
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M256 156 H330"/>
+    <path d="M550 156 H624"/>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="15" fill="#f6f1ea">
+    <text x="36" y="248">还在上机的卡不能再上机，也不能退费。</text>
+    <text x="36" y="280">余额为负：禁止再上机，禁止退费。下机时按欠费提示剩余时间，欠得越多时间越短。</text>
+    <text x="36" y="312">信用值到 0，或手机号已在黑名单：这张卡注销。同一手机号下的其他卡，下次启动也会注销。</text>
+    <text x="36" y="360" fill="#c9bdb2">启动时把卡扫两遍，避免删掉前面的节点后漏掉后面的卡。</text>
+  </g>
+</svg>

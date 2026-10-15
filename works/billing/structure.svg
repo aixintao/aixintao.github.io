@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" role="img">
+  <title>计费管理系统结构</title>
+  <rect width="880" height="700" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">结构示意图</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">菜单进 switch，链表再落盘</text>
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M440 168 V198"/>
+    <path d="M440 262 V292"/>
+    <path d="M440 390 V418"/>
+    <path d="M132 418 H748"/>
+    <path d="M132 418 V436"/>
+    <path d="M336 418 V436"/>
+    <path d="M540 418 V436"/>
+    <path d="M746 418 V436"/>
+    <path d="M440 528 V556"/>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="210" y="104" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="132" fill="#f6f1ea" font-size="18">menu.txt / sub_menus.txt</text>
+    <text x="440" y="154" fill="#c9bdb2" font-size="13">菜单正文写在文本里，用 &amp; 分段</text>
+    <rect x="210" y="198" width="460" height="64" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="226" fill="#f6f1ea" font-size="18">menu() · switch</text>
+    <text x="440" y="248" fill="#ffd2cb" font-size="13">读一段、问一个数、派到对应函数</text>
+    <rect x="210" y="292" width="460" height="98" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="328" fill="#f6f1ea" font-size="18">service_*</text>
+    <text x="440" y="354" fill="#c9bdb2" font-size="14">能不能上机、怎么扣费、要不要管理员</text>
+    <text x="440" y="376" fill="#c9bdb2" font-size="14">规则放在这里，不直接碰文件</text>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="36" y="436" width="192" height="92" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="132" y="470" fill="#f6f1ea" font-size="16">卡</text>
+    <text x="132" y="494" fill="#c9bdb2" font-size="12">注册 · 查询 · 删除</text>
+    <rect x="240" y="436" width="192" height="92" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="336" y="470" fill="#f6f1ea" font-size="16">上下机 / 费用</text>
+    <text x="336" y="494" fill="#c9bdb2" font-size="12">上机 · 下机 · 充值 · 退费</text>
+    <rect x="444" y="436" width="192" height="92" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="540" y="470" fill="#f6f1ea" font-size="16">标准 / 会员</text>
+    <text x="540" y="494" fill="#c9bdb2" font-size="12">分档 · 折扣 · 头衔</text>
+    <rect x="648" y="436" width="196" height="92" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="746" y="470" fill="#f6f1ea" font-size="16">信用 / 统计</text>
+    <text x="746" y="494" fill="#c9bdb2" font-size="12">黑名单 · 营业额 · 日志</text>
+  </g>
+  <rect x="36" y="556" width="808" height="108" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="56" y="588" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">data_* 链表整表读入，改完再整表写回</text>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="16" fill="#f6f1ea">
+    <text x="56" y="628">card.dat</text>
+    <text x="190" y="628">standard.dat</text>
+    <text x="360" y="628">vip.dat</text>
+    <text x="490" y="628">blacklist.dat</text>
+    <text x="670" y="628">admin.dat</text>
+    <text x="56" y="656" fill="#c9bdb2" font-size="14">log.dat 记上下机、充值退费、改标准和登录</text>
+  </g>
+</svg>

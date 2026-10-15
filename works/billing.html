@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>计费管理系统 · aixintao</title>
+  <meta name="description" content="2023 年春的 C 语言课程作业。控制台菜单、链表和二进制文件，把上下机、分档计费和黑名单串成一套规则。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">C · 控制台 · 2023.2–2023.4</p>
+    <h1>计费管理系统</h1>
+    <p class="prose">武汉理工大学《程序设计实验》的课程作业，2023 年 2 月 22 日立项，4 月 19 日收到 1.0.0。课程要求尽量按 C 来写，所以界面是 <code>printf</code>，数据是结构体和手写链表，存盘是二进制文件。这套写法是古法。上下机、分档计费、透支、会员折扣和黑名单，是自己把规则排进函数里的。</p>
+
+    <figure class="shot">
+      <img src="/works/billing/structure.svg" alt="从菜单文本经过 switch 和业务函数，进入链表，再写入多个 dat 文件">
+      <figcaption>菜单只负责问数字。能不能做，放在 service；怎么存，放在 data。</figcaption>
+    </figure>
+
+    <section class="prose" aria-labelledby="base-title">
+      <h2 id="base-title">菜单、链表、文件</h2>
+      <p>主菜单和九个子菜单写在文本里。程序读到 <code>&amp;</code> 就换一段，把用户输入的数字交给 <code>switch</code>。带星号的项先看有没有管理员登录，没有就直接退回。</p>
+      <p>每做一件事，先把对应文件整表读进链表，改完再整表写回。卡、计费标准、会员、黑名单、管理员、事件日志各有一个 <code>.dat</code>。删除不把记录抹掉，只把 <code>del</code> 标成 1，之后的查询跳过它。统计因此还能分出有效卡和已经注销的卡。</p>
+      <p>卡上的余额是整数分。扣费和汇总都按分算，显示时再除以 100。3 月里修过一次写卡失败：结构体按字节存的时候，文件打开模式少了二进制标记，文本模式会改掉内容。</p>
+      <figure class="shot">
+        <img src="/works/billing/console.svg" alt="主菜单列出上下机、费用、计费标准、卡、黑名单、会员、统计、管理员和退出">
+        <figcaption>主菜单原文。输入超出范围会重新问，非法字符会被吃掉。</figcaption>
+      </figure>
+    </section>
+
+    <section class="prose" aria-labelledby="flow-title">
+      <h2 id="flow-title">上机之前先挡住</h2>
+      <p>上机连问三件事：这张卡是不是已经在上机，余额是不是零或负数，密码对不对。密码连错三次记一条日志，然后返回。三件都过了，才把当前时间记成上机时间。</p>
+      <p>下机时如果这张卡本来就没上机，直接失败。通过之后用结束时间减开始时间，换成分钟，再沿计费标准的链表往下走。每一档写着「多少分钟以上、每几分钟多少元」。已经跨过的时段按上一档向上取整，剩下的分钟用当前这一档。没有标准时按免费。算完乘上会员折扣，换成「分」，从余额里扣，使用次数加一。</p>
+      <figure class="shot">
+        <img src="/works/billing/billing.svg" alt="100 分钟拆成 60 分钟和 40 分钟两段计费，八五折后记成 680 分">
+        <figcaption>举例用的价目。向上取整发生在每一档内部，折扣在全部加完之后。</figcaption>
+      </figure>
+      <p>退费会把余额退回并注销这张卡。人还在上机，或者已经欠费，都不能退。充值如果跨过会员门槛，等级当场升上去。折扣写在等级上，下一次下机才用得到。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="credit-title">
+      <h2 id="credit-title">透支、黑名单、账本</h2>
+      <p>余额允许透支一次。欠费之后不能再上机。下机如果余额为负，会按欠费多少算出一段剩余时间并提示，欠得越多，这段时间越短。新卡的信用值是 100。真正执行拉黑的是信用值和手机号：信用值到 0，手机号写入黑名单，这张卡注销；手机号已经在黑名单上的，名下其他卡也会注销。</p>
+      <figure class="shot">
+        <img src="/works/billing/states.svg" alt="卡从未上机进入上机中，下机结算后回到未上机；欠费和黑名单各自拦住后续操作">
+        <figcaption>状态先看是不是在上机，再看余额和信用。启动时扫两遍，避免删节点时漏卡。</figcaption>
+      </figure>
+      <p>充值、退费、上下机、改计费标准、管理员登录和密码错误，都写成事件。统计时选定一段日期，把充值减去退费得到净收入，下机消费另外单列。系统启动和关闭也各留一条。这些查询都要管理员。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="ver-title">
+      <h2 id="ver-title">两个月收到 1.0.0</h2>
+      <p>2 月 22 日先有菜单和子菜单。3 月初卡能注册、查询、删除，并改成链表和文件，卡号会查重。3 月中旬加上分档计费和上下机，中途把计费和上下机重写过一遍。3 月下旬是信用、会员和黑名单。4 月加上管理员、按日期的营业额和流水。4 月 19 日功能定档，清掉编译警告，错误提示改成红色，版本写成 1.0.0。</p>
+      <p>程序「关于」里的署名是当时的名号 aixintao2022。</p>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>
