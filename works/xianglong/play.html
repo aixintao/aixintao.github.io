@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>降龙 · 在线试玩 · aixintao</title>
+  <meta name="description" content="波波攒《降龙》的网页版：单机挑战 1–5 个电脑，或两人用房间码在线对战。">
+  <meta name="theme-color" content="#12100e">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/works/xianglong/game.css">
+</head>
+<body class="page play-body">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap play-main">
+    <a class="back" href="/works/xianglong.html">← 降龙</a>
+
+    <!-- ============ 大厅 ============ -->
+    <section class="screen" id="screen-lobby" aria-labelledby="lobby-title">
+      <div class="lobby-head">
+        <h1 id="lobby-title">降龙</h1>
+        <p class="lobby-sub">波波攒 · 网页版。每人一格血，攒气、防守、出掌，最后站着的人赢。</p>
+      </div>
+
+      <div class="lobby-grid">
+        <form class="panel" id="form-solo" novalidate>
+          <h2><span class="panel-index">01</span>单机</h2>
+          <p class="panel-desc">你一个人对阵 1–5 个电脑，同场混战。</p>
+          <label class="field">
+            <span class="field-label">你的名字</span>
+            <input id="solo-name" name="name" maxlength="8" autocomplete="nickname" placeholder="aixintao">
+          </label>
+          <fieldset class="field">
+            <legend class="field-label">电脑人数</legend>
+            <div class="seg" id="solo-count" role="radiogroup">
+              <button type="button" class="seg-btn" data-cpu="1" role="radio" aria-checked="false">1</button>
+              <button type="button" class="seg-btn" data-cpu="2" role="radio" aria-checked="false">2</button>
+              <button type="button" class="seg-btn is-on" data-cpu="3" role="radio" aria-checked="true">3</button>
+              <button type="button" class="seg-btn" data-cpu="4" role="radio" aria-checked="false">4</button>
+              <button type="button" class="seg-btn" data-cpu="5" role="radio" aria-checked="false">5</button>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend class="field-label">电脑水平</legend>
+            <div class="seg" id="solo-level" role="radiogroup">
+              <button type="button" class="seg-btn" data-level="0" role="radio" aria-checked="false" title="愣头青">愣头青</button>
+              <button type="button" class="seg-btn is-on" data-level="1" role="radio" aria-checked="true" title="熟手">熟手</button>
+              <button type="button" class="seg-btn" data-level="2" role="radio" aria-checked="false" title="高手">高手</button>
+            </div>
+          </fieldset>
+          <p class="field-note" id="solo-level-desc">看对手最高能量选防御档位，会省气，专挑软柿子。</p>
+          <button class="btn btn-primary" type="submit">开始</button>
+        </form>
+
+        <div class="panel">
+          <h2><span class="panel-index">02</span>在线对战</h2>
+          <p class="panel-desc">一人建房、把 6 位房间码给对方；两人同场，先出招再一起结算。</p>
+          <label class="field">
+            <span class="field-label">你的名字</span>
+            <input id="net-name" name="name" maxlength="8" autocomplete="nickname" placeholder="aixintao">
+          </label>
+          <div class="net-actions">
+            <button class="btn btn-primary" type="button" id="btn-host">创建房间</button>
+          </div>
+          <div class="net-divider"><span>或</span></div>
+          <form class="join-row" id="form-join" novalidate>
+            <label class="field field-grow">
+              <span class="field-label">房间码</span>
+              <input id="join-code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABC234" inputmode="text">
+            </label>
+            <button class="btn" type="submit">加入</button>
+          </form>
+          <p class="net-status" id="net-status" role="status" aria-live="polite"></p>
+          <details class="howto">
+            <summary>开不了房？</summary>
+            <p>对战是浏览器点对点直连，开房和加入都要经过 PeerJS 的公共信令服务器。公司网络或校园网可能拦掉 WebRTC 的 UDP。实在连不上，可以先找同网络的另一台设备试试。</p>
+          </details>
+        </div>
+      </div>
+
+      <details class="rules panel" id="rules-panel">
+        <summary>规则速查</summary>
+        <div class="rules-body">
+          <p class="rules-lead">每回合所有人同时出招，一起结算。每人只有 1 格血，挨到没防住的攻击就出局；最后剩一个人赢，全灭算平局。</p>
+          <div class="rules-cols">
+            <section>
+              <h3>攒气</h3>
+              <ul>
+                <li><b>降龙</b> 回 1 点气。这回合完全没有防御，任何人打过来都会出局。</li>
+              </ul>
+              <h3>防守</h3>
+              <p class="rules-note">挡得住的是「攻击力小于 N」：全发(5) 破小防，九阴(9) 破中防，十八掌破大防。防守不耗气。</p>
+              <ul>
+                <li><b>小防</b> 挡 1–4。</li>
+                <li><b>中防</b> 挡 5–8，最多连用 5 次。</li>
+                <li><b>大防</b> 挡 9–17，最多连用 4 次。</li>
+              </ul>
+            </section>
+            <section>
+              <h3>出掌</h3>
+              <ul>
+                <li><b>单掌</b> 1 气打 1 · <b>双掌</b> 2 气打 2 · <b>三连</b> 3 气打 3</li>
+                <li><b>全发</b> 5 气打 5 · <b>六脉</b> 6 气打 6</li>
+                <li><b>九阴</b> 9 气打 9 · <b>降龙十八掌</b> 18 气打 18</li>
+              </ul>
+              <h3>结算</h3>
+              <ul>
+                <li><b>对波</b> 两人互指：攻击力高的活，低的出局；一样高就互相抵消。</li>
+                <li><b>背刺</b> 出掌的人这回合没法防守，被第三人打中就出局；但他打出的那一掌照样落到目标身上。</li>
+              </ul>
+            </section>
+          </div>
+          <p class="rules-foot">能量不够还出掌、中防/大防连用超限，这一招作废，变成原地降龙：没有防守，这回合也不回气。</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============ 对战 ============ -->
+    <section class="screen" id="screen-game" hidden aria-labelledby="game-title">
+      <div class="game-hud">
+        <div class="hud-left">
+          <span class="hud-round">第 <b id="hud-round">1</b> 回合</span>
+          <span class="hud-mode" id="hud-mode"></span>
+        </div>
+        <div class="hud-timer" id="hud-timer-box" aria-live="off">
+          <svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+            <circle class="ring-track" cx="18" cy="18" r="15.5"></circle>
+            <circle class="ring-bar" id="ring-bar" cx="18" cy="18" r="15.5"></circle>
+          </svg>
+          <span class="hud-seconds" id="hud-seconds">—</span>
+        </div>
+        <div class="hud-right">
+          <span class="hud-me"><span class="hud-label">你：</span><b id="hud-name">—</b><span class="hud-meta"> · <span id="hud-energy">0</span> 气</span></span>
+          <button class="icon-btn" type="button" id="btn-mute" aria-pressed="false" title="声音">🔊</button>
+          <button class="icon-btn" type="button" id="btn-leave" title="离开">✕</button>
+        </div>
+      </div>
+
+      <h1 class="visually-hidden" id="game-title">降龙对战</h1>
+      <ul class="board" id="board" aria-live="polite"></ul>
+
+      <div class="log-wrap" id="log-wrap">
+        <ol class="log" id="log" aria-label="本回合战报" aria-live="polite"></ol>
+      </div>
+
+      <div class="controls" id="controls">
+        <div class="hint" id="hint"></div>
+        <div class="skill-groups">
+          <div class="skill-group" data-group="charge">
+            <button class="skill skill-charge" type="button" data-skill="charge">
+              <span class="skill-name">降龙</span><span class="skill-meta">+1 气</span><span class="skill-note">无防备</span>
+            </button>
+          </div>
+          <div class="skill-group" data-group="defend">
+            <button class="skill" type="button" data-skill="def_small"><span class="skill-name">小防</span><span class="skill-meta">≤4</span></button>
+            <button class="skill" type="button" data-skill="def_mid"><span class="skill-name">中防</span><span class="skill-meta">≤8 · 连 5</span></button>
+            <button class="skill" type="button" data-skill="def_big"><span class="skill-name">大防</span><span class="skill-meta">≤17 · 连 4</span></button>
+          </div>
+          <div class="skill-group" data-group="attack">
+            <button class="skill skill-atk" type="button" data-skill="atk_1"><span class="skill-name">单掌</span><span class="skill-meta">1 气 · 1</span></button>
+            <button class="skill skill-atk" type="button" data-skill="atk_2"><span class="skill-name">双掌</span><span class="skill-meta">2 气 · 2</span></button>
+            <button class="skill skill-atk" type="button" data-skill="atk_3"><span class="skill-name">三连</span><span class="skill-meta">3 气 · 3</span></button>
+            <button class="skill skill-atk" type="button" data-skill="atk_5"><span class="skill-name">全发</span><span class="skill-meta">5 气 · 5</span></button>
+            <button class="skill skill-atk" type="button" data-skill="atk_6"><span class="skill-name">六脉</span><span class="skill-meta">6 气 · 6</span></button>
+            <button class="skill skill-atk" type="button" data-skill="atk_9"><span class="skill-name">九阴</span><span class="skill-meta">9 气 · 9</span></button>
+            <button class="skill skill-atk skill-ult" type="button" data-skill="atk_18"><span class="skill-name">降龙十八掌</span><span class="skill-meta">18 气 · 18</span></button>
+          </div>
+        </div>
+        <div class="commit-row">
+          <button class="btn btn-primary btn-commit" type="button" id="btn-commit" disabled>先选一招，再点目标</button>
+        </div>
+      </div>
+
+      <p class="spectate-note" id="spectate-note" hidden>你已出局，可以继续观战。</p>
+    </section>
+
+    <!-- ============ 结算 ============ -->
+    <section class="screen result" id="screen-result" hidden aria-labelledby="result-title">
+      <p class="result-kicker" id="result-kicker">本局结束</p>
+      <h1 id="result-title">—</h1>
+      <p class="result-sub" id="result-sub"></p>
+      <div class="result-actions">
+        <button class="btn btn-primary" type="button" id="btn-again">再来一局</button>
+        <a class="btn" href="/works/xianglong.html" id="btn-back">回到介绍</a>
+      </div>
+    </section>
+
+    <!-- 建房面板 -->
+    <div class="modal" id="modal-room" hidden role="dialog" aria-modal="true" aria-labelledby="room-title">
+      <div class="modal-card">
+        <h2 id="room-title">房间已创建</h2>
+        <p class="room-code" id="room-code">------</p>
+        <p class="room-tip">把房间码发给对方，等对方进来就能开打。</p>
+        <p class="room-peer" id="room-peer"></p>
+        <p class="net-status" id="room-status" role="status" aria-live="polite">正在连接信令服务器…</p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="button" id="btn-copy-code">复制房间码</button>
+          <button class="btn" type="button" id="btn-cancel-room">取消</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+
+  <script src="/works/xianglong/vendor/peerjs.min.js" defer></script>
+  <script src="/works/xianglong/engine.js" defer></script>
+  <script src="/works/xianglong/host.js" defer></script>
+  <script src="/works/xianglong/game.js" defer></script>
+</body>
+</html>

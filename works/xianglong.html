@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>降龙 · aixintao</title>
+  <meta name="description" content="波波攒《降龙》的网页版。单机对阵 1–5 个电脑，三档水平；或者两人用房间码在线对战。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .play-cta {
+      display: inline-block;
+      margin: 1.4rem 0 0.4rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 999px;
+      background: var(--peach);
+      color: #1a1410;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .play-cta:hover { filter: brightness(1.08); }
+    .play-note {
+      margin: 0.4rem 0 0;
+      color: var(--faint);
+      font-size: 0.92rem;
+    }
+    .rule-table {
+      width: 100%;
+      margin: 1em 0;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .rule-table th,
+    .rule-table td {
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    .rule-table th {
+      color: var(--faint);
+      font-weight: 500;
+    }
+    .rule-table td:first-child { color: var(--ink); }
+  </style>
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">波波攒 · 网页 · JavaScript</p>
+    <h1>降龙</h1>
+    <div class="prose">
+      <p>小时候课间玩的手游：几个人同时出招，谁也别偷看谁的。攒一口气叫降龙，加一点能量；能量够了就出掌，从单掌一路到降龙十八掌；再配上小、中、大三种防御。每个人一格血，挨到没防住的一掌就出局。</p>
+      <p>这是一个可以玩的网页版。一个人对 1–5 个电脑，电脑分三档；或者两个人各开一台设备，一个人建房、拿到六位房间码，另一个人输入房间码进来，隔空对打。手机优先，电脑上也能玩。</p>
+    </div>
+
+    <p><a class="play-cta" href="/works/xianglong/play.html">在线试玩 →</a></p>
+    <p class="play-note">对战走浏览器点对点直连，需要一个公共信令服务器帮忙交换地址；公司网络或校园网如果挡住 WebRTC，可能连不上。</p>
+
+    <section class="prose" aria-labelledby="rules-title">
+      <h2 id="rules-title">规则</h2>
+      <p>每回合所有人同时出招，一起结算。每人一格血，最后站着的人赢；最后一回合全灭算平局。</p>
+      <table class="rule-table">
+        <thead>
+          <tr><th>招式</th><th>耗气</th><th>效果</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>降龙</td><td>—</td><td>回 1 气。这回合完全不设防</td></tr>
+          <tr><td>小防</td><td>—</td><td>挡 1–4 的攻击</td></tr>
+          <tr><td>中防</td><td>—</td><td>挡 5–8，最多连用 5 次</td></tr>
+          <tr><td>大防</td><td>—</td><td>挡 9–17，最多连用 4 次</td></tr>
+          <tr><td>单掌 / 双掌 / 三连</td><td>1 / 2 / 3</td><td>打 1 / 2 / 3</td></tr>
+          <tr><td>全发 / 六脉</td><td>5 / 6</td><td>打 5 / 6</td></tr>
+          <tr><td>九阴 / 降龙十八掌</td><td>9 / 18</td><td>打 9 / 18</td></tr>
+        </tbody>
+      </table>
+      <p>出掌的时候要先点一个人做目标。两个人互相指着对方就是<b>对波</b>：攻击力高的活下来，低的出局；一样高就互相抵消，谁都不死。出掌的人这一回合没法防守，如果被第三个人打中，一样出局——这叫<b>背刺</b>，不过他自己那一掌照样会落到目标身上。</p>
+      <p>能量不够还硬出掌，或者中防、大防连用超了上限，这一招作废，变成原地降龙：没有防守，这回合也不回气。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="diff-title">
+      <h2 id="diff-title">和 Godot 原型的差别</h2>
+      <p>记规则的时候手边有一份旧原型的 <code>Gamerule.md</code>，还有一段更早的口述。两边对不上，最后按口述来，代码注释里也写着这两处改动。</p>
+      <ul>
+        <li><b>防御阈值是「攻击力小于 N 才防得住」</b>，不是「不大于」。小防 4、中防 8、大防 17，所以全发（5）破小防、九阴（9）破中防、十八掌（18）破大防。旧原型把 5、9、18 都当成了能挡住的。</li>
+        <li><b>中防、大防的连用上限是 5 次和 4 次</b>。第 5 次中防、第 4 次大防本身仍然生效，第 6 次、第 5 次才判犯规。旧原型少算了一次。</li>
+      </ul>
+      <p>原型的对局是按顺序轮流出招的；网页版改成所有人同时提交再一起结算，这样在线对战才有「谁也不知道对方出了什么」的感觉。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="cpu-title">
+      <h2 id="cpu-title">三档电脑</h2>
+      <p>电脑和人跑的是同一份规则引擎，区别只在 AI 怎么选招。</p>
+      <ul>
+        <li><b>愣头青</b>：有空就打，没空就攒，防守也随机挑。偶尔会打出很蠢的一招。</li>
+        <li><b>熟手</b>：看场上最高能量来选防御档位，会省气，专挑能量少的软柿子打。</li>
+        <li><b>高手</b>：每一回合把几种候选招数往前推演几手，用蒙特卡洛随机对局估算「活下来、拿到人头、留下能量」的期望，再挑分最高的。所以它会先手算，偶尔也会挖坑——比方说攒到 18 气、一记十八掌没人防得住的时候，它会毫不犹豫地出手。</li>
+      </ul>
+      <p>出招的判断逻辑都写在 <code>engine.js</code> 里，单机、房主、客户端共用同一份，测试的时候可以脱离浏览器直接跑。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="net-title">
+      <h2 id="net-title">在线对战怎么连的</h2>
+      <p>整个站点是静态的，没有后端。对战用的是 WebRTC：建房的人拿到一个六位房间码，PeerJS 的公共信令服务器只负责帮两边交换一下连接信息，之后的对局数据直接在两个浏览器之间走。</p>
+      <p>一局的状态和结算全放在房主的浏览器里。客人每次出招把指令发给房主，房主统一结算，再把结果发给两边。房主自己那一边也会先在本地算一遍做即时反馈，但以房主给的结果为准。</p>
+      <p>每回合有时间限制。所有人都提交了就直接进入结算，有人没交就等他到倒计时结束，没交的人这一回合自动变成降龙。</p>
+      <p>过程中谁把页面关掉，另一边其实收不到标准的断开通知。所以两边每三秒互发一次心跳，连着十二秒没回音，就判定对方掉线，退回大厅并说明情况。客人主动点离开的，会先发一条「再见」，不用等心跳。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="mobile-title">
+      <h2 id="mobile-title">手机优先</h2>
+      <p>界面是照手机竖屏做的：上面是回合、计时和你的气，中间是座位和战报，出招按钮固定在屏幕下面，拇指够得到；带刘海和底部横条的机型留了安全区。屏幕宽到一定程度，场次信息会多出来，提交按钮也从通栏缩回右边。</p>
+      <p>想直接开一局，也可以带参数访问：<code>/works/xianglong/play.html?solo=1&amp;cpu=3&amp;level=2</code>，跳过大厅直接和三个高手开打。</p>
+    </section>
+
+    <p class="more"><a href="/works/xianglong/play.html">在线试玩</a> · <a href="/#works">看看其他作品</a></p>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>
