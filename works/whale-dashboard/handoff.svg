@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" role="img">
+  <title>交给 AI 的规格书示意</title>
+  <rect width="880" height="600" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">协作示意图</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">先写给 AI 的规则，再让它动手</text>
+
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <rect x="36" y="112" width="188" height="120" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="130" y="146" fill="#f6f1ea" font-size="16" text-anchor="middle">一页决策树</text>
+    <text x="130" y="174" fill="#ffd2cb" font-size="12" text-anchor="middle">「你想做什么」</text>
+    <text x="130" y="196" fill="#ffd2cb" font-size="12" text-anchor="middle">对应哪几节、哪条路</text>
+
+    <rect x="248" y="112" width="188" height="120" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="342" y="146" fill="#f6f1ea" font-size="16" text-anchor="middle">口径与契约</text>
+    <text x="342" y="174" fill="#c9bdb2" font-size="12" text-anchor="middle">字段、编码、不变量</text>
+    <text x="342" y="196" fill="#c9bdb2" font-size="12" text-anchor="middle">写死到可以逐条核对</text>
+
+    <rect x="460" y="112" width="188" height="120" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="554" y="146" fill="#f6f1ea" font-size="16" text-anchor="middle">提示词模板</text>
+    <text x="554" y="174" fill="#c9bdb2" font-size="12" text-anchor="middle">照着做，别凭经验</text>
+    <text x="554" y="196" fill="#c9bdb2" font-size="12" text-anchor="middle">不确定就停下来问</text>
+
+    <rect x="672" y="112" width="172" height="120" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="758" y="146" fill="#f6f1ea" font-size="16" text-anchor="middle">边界</text>
+    <text x="758" y="174" fill="#c9bdb2" font-size="12" text-anchor="middle">文档里不放凭据</text>
+    <text x="758" y="196" fill="#c9bdb2" font-size="12" text-anchor="middle">产物里也不放</text>
+  </g>
+
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M224 172 H248"/>
+    <path d="M436 172 H460"/>
+    <path d="M648 172 H672"/>
+    <path d="M342 232 V284"/>
+  </g>
+  <path d="M336 286 L342 298 L348 286" fill="none" stroke="#ff6b57" stroke-width="1.5"/>
+
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="130" y="304" width="620" height="76" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="336" fill="#f6f1ea" font-size="17">AI 按文档产出：脚本、数据文件、自检报告</text>
+    <text x="440" y="362" fill="#ffd2cb" font-size="13">我只看两件事：它有没有照文档做，数字对不对得上</text>
+
+    <rect x="36" y="424" width="256" height="104" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="164" y="458" fill="#f6f1ea" font-size="15">不变量自检</text>
+    <text x="164" y="484" fill="#c9bdb2" font-size="12">生成后必须全部成立</text>
+    <text x="164" y="506" fill="#c9bdb2" font-size="12">少一条就退回重做</text>
+
+    <rect x="312" y="424" width="256" height="104" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="458" fill="#f6f1ea" font-size="15">独立复算</text>
+    <text x="440" y="484" fill="#c9bdb2" font-size="12">另写一段 SQL 数一遍</text>
+    <text x="440" y="506" fill="#c9bdb2" font-size="12">两个答案一样才算过</text>
+
+    <rect x="588" y="424" width="256" height="104" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="716" y="458" fill="#f6f1ea" font-size="15">第三方对账</text>
+    <text x="716" y="484" fill="#c9bdb2" font-size="12">群日报用同一口径</text>
+    <text x="716" y="506" fill="#c9bdb2" font-size="12">对不上先查数据</text>
+  </g>
+
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M440 380 V402"/>
+    <path d="M164 402 H716"/>
+    <path d="M164 402 V424"/>
+    <path d="M440 402 V424"/>
+    <path d="M716 402 V424"/>
+  </g>
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M158 412 L164 424 L170 412"/>
+    <path d="M434 412 L440 424 L446 412"/>
+    <path d="M710 412 L716 424 L722 412"/>
+  </g>
+
+  <path d="M716 528 V556 H130 V424" fill="none" stroke="#ffb1a3" stroke-width="1.3" stroke-dasharray="5 5"/>
+  <path d="M124 436 L130 424 L136 436" fill="none" stroke="#ffb1a3" stroke-width="1.3"/>
+  <text x="440" y="576" fill="#9a8d82" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13" text-anchor="middle">每踩一个坑，就把它写成文档里的一行字；下一次不用再解释一遍。</text>
+</svg>

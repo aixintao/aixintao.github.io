@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>大哥看板 · aixintao</title>
+  <meta name="description" content="在职期间做的玩家付费看板：每天自动从数仓捞数、生成静态数据文件，由内网只读服务发给浏览器。这条链路大部分由 AI 写，规则、契约和验收是我定的。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">在职作品 · 数据看板 · 2026</p>
+    <h1>大哥看板</h1>
+    <p class="prose">这是我在工作中的项目：一个给运营和策划用的玩家付费看板。它每天上午自动从数仓捞数，生成两份静态数据文件，再由一个只能在内网访问的只读服务发给浏览器。页面没有后端，所有分档、筛选和图表都在浏览器里当场算。</p>
+    <p class="prose">这个站不放链接，也不放截图。下面几张示意图里的版式、人数和金额都是示意的，真实页面和真实数据只在内网。代码也不贴，只讲它是怎么被设计、被交给 AI 写、又怎么被验收的。</p>
+
+    <figure class="shot">
+      <img src="/works/whale-dashboard/pipeline.svg" alt="计划任务每天九点拉起五段管线，经只读数仓和本地 SQLite，发布近段与全段两个数据文件，最后交给内网静态服务">
+      <figcaption>后端只做一件事：把日序列搬到浏览器门口。算，交给页面。</figcaption>
+    </figure>
+
+    <section class="prose" aria-labelledby="pipeline-title">
+      <h2 id="pipeline-title">一条每天自己跑的管线</h2>
+      <p>早上九点，计划任务拉起一个批处理，进虚拟环境，跑主程序。管线分五段：先连上数仓、核对表结构；再按日聚合充值，分块拉取，每块不超过一周；然后按候选池拉活跃与金钻；接着发布数据文件；最后发一条群日报。日常增量十几分钟，全量回补要几个小时，中途断掉可以从断点接着补。</p>
+      <p>三条设计是踩过坑之后定下来的。查询只读、只取要的列，而且必须带分区条件——漏了分区条件，轻则扫全表，重则直接被数仓拦下。本地用 SQLite 做中间层，写入是幂等的，每次重叠补两天，重复跑不会重账。发布先写临时文件再改名，页面永远读不到写了一半的文件。</p>
+      <p>印象最深的一次故障是「成功」的假象：计划任务一直报成功，数据却几天没有更新。原因是批处理文件里写了中文注释，在机器的代码页下变成乱码，命令行根本没进到 Python。从那以后，批处理文件只写 ASCII，这条也写进了交接文档。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="page-title">
+      <h2 id="page-title">页面是静态的，算在浏览器里</h2>
+      <p>数据文件分两份：近段十几 MB，打开页面就加载；全段七十多 MB，点了「加载全量」才读。逐日序列用稀疏编码压过一道，体积和解析时间都省了一半左右。页面拿到数据后自己解码，不需要后端查询。</p>
+      <p>所有规则都放在页面里：分三档人群，阈值露在页面上，改一个数，全页立即重算，零点几秒。不用重跑任何任务——这是整个设计里我最满意的地方。每个筛选状态都能用一条带参数的链接打开，贴到群里，别人点开就是同一个视图。</p>
+      <p>还有一条口径专门写在页面上：「未载入」不等于 0。金钻持有当天没有记录，意思是没变动，不是清零，页面用最近一次已知值前向填充；充值当天没记录才是 0。这类语义一旦搞混，结论会整个反过来。</p>
+      <figure class="shot">
+        <img src="/works/whale-dashboard/static-page.svg" alt="页面版式示意：页头、分档规则、筛选行、六张 KPI、趋势图、金钻持有图，以及四个标签页">
+        <figcaption>版式是示意的。真实看板还有名册、单人钻取、时段对比和流失预警四个标签页。</figcaption>
+      </figure>
+      <p>内网服务也很小：只接受读请求，路径有白名单，白名单外一律 404；单实例互斥，避免开两份；响应带修改时间，浏览器换过数据再访问就是 304。看板只在内网，数据含玩家 ID 和逐笔金额，这一点在文档的抬头就写明。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="handoff-title">
+      <h2 id="handoff-title">先把规则写成 AI 能照着做的样子</h2>
+      <p>这个项目里最重要的文件，可能不是代码，而是一份接入规范。它的读者写得明明白白：需要在另一台电脑上复现看板的同事，以及协助他的 AI 助手。开头是一页决策树——只想自己看，拷三个文件就够；想从数仓重算，走标准管线；想让 AI 生成数据，把整份文档交给它，再配下面的提示词。</p>
+      <p>三条最容易错的口径放在最前面：候选池是计算上限；累计充值是全期标量；缺失不等于 0。字段、编码、文件之间必须一致的地方，都写到可以逐条勾选的程度。给 AI 的提示词里则写死了几条边界：严格按文档行事，不要凭经验改口径；任何口径不确定，停下来问我，不要猜；不要输出或记录数仓密码。</p>
+      <p>安全也是文档的一部分，而不是事后的提醒。文档里不写数仓地址、账号、密码，不写群机器人地址；产物里同样不许出现凭据；数据只走公司内网，不用公网网盘和聊天工具外发。每踩一个坑，就把它变成文档里的一行字。代码可以重写，文档比代码活得久。</p>
+      <figure class="shot">
+        <img src="/works/whale-dashboard/handoff.svg" alt="协作示意：决策树、口径契约、提示词模板和安全边界，交给 AI 产出脚本与自检报告，再由不变量自检、独立复算和群日报对账三道关口验收">
+        <figcaption>先写「什么算对」，再让 AI 动手。验收的三道关口，是我自己能复现的。</figcaption>
+      </figure>
+    </section>
+
+    <section class="prose" aria-labelledby="verify-title">
+      <h2 id="verify-title">我怎么验收</h2>
+      <p>说明白一点：这个系统的代码大部分是 AI 写的，规则、数据契约、验收标准是我定的。我不靠通读代码来判断它对不对，而是靠几件它绕不过去的事。</p>
+      <p>第一，不变量清单。生成的数据文件必须逐条满足：日期轴连续、人数一致、两份文件的生成时间和区间相同、抽样解码能还原。少一条就退回重做。第二，独立复算。另写一段 SQL，从数仓直接数一遍当天的大R人数，和页面上的数字对上才算过。第三，第三方对账。群日报和页面共用一套口径，两边对不上，先查数据，不要先改页面。最后的验收清单里甚至有一条：请求白名单外的路径，必须返回 404。</p>
+      <p>这套流程让我确认了一件事：用 AI 不是把活扔过去，而是把「什么算对」提前写下来。规则足够清楚，AI 才有对错可判；验收足够具体，我才敢把大半实现交出去。</p>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>

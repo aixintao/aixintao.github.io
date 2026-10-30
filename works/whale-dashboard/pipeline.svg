@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 800" role="img">
+  <title>数据链路示意</title>
+  <rect width="880" height="800" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">链路示意图 · 数字均为示意</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">每天九点，把数仓搬成一份静态文件</text>
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M440 168 V198"/>
+    <path d="M440 262 V292"/>
+    <path d="M440 356 V386"/>
+    <path d="M440 450 V480"/>
+    <path d="M440 544 V574"/>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="210" y="104" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="132" fill="#f6f1ea" font-size="18">计划任务 · 每天 09:00</text>
+    <text x="440" y="154" fill="#c9bdb2" font-size="13">一个 .bat 进虚拟环境，拉起 run_daily</text>
+
+    <rect x="210" y="198" width="460" height="64" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="226" fill="#f6f1ea" font-size="18">五段捞取</text>
+    <text x="440" y="248" fill="#ffd2cb" font-size="13">校验 · 付费 · 活跃 · 金钻 · 发布</text>
+
+    <rect x="210" y="292" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="320" fill="#f6f1ea" font-size="18">数仓 · 只读</text>
+    <text x="440" y="342" fill="#c9bdb2" font-size="13">按日聚合；只取要的列；必须带分区条件</text>
+
+    <rect x="210" y="386" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="414" fill="#f6f1ea" font-size="18">本地 SQLite · 十几 GB</text>
+    <text x="440" y="436" fill="#c9bdb2" font-size="13">幂等写入，每次重叠两天，中断可续</text>
+
+    <rect x="210" y="480" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="508" fill="#f6f1ea" font-size="18">数据文件 · 近段 + 全段</text>
+    <text x="440" y="530" fill="#c9bdb2" font-size="13">稀疏编码；先写 .tmp 再改名，原子替换</text>
+
+    <rect x="210" y="574" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="602" fill="#f6f1ea" font-size="18">静态页面 · 内网只读服务</text>
+    <text x="440" y="624" fill="#c9bdb2" font-size="13">只接 GET/HEAD；路径白名单；单一实例</text>
+  </g>
+  <rect x="36" y="664" width="808" height="100" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="56" y="698" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">顺带发一条群日报</text>
+  <text x="56" y="730" fill="#f6f1ea" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="15">日报和页面用同一套口径。数字对不上，先查数据，不要先改页面。</text>
+</svg>
