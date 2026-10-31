@@ -296,6 +296,163 @@ function clearSolution() {
   setStatus("");
 }
 
+const MAX_NODES = 200000;
+const TIME_LIMIT_MS = 1500;
+
+function solveWaterSort(tubes, capacity) {
+  const names = [];
+  const index = new Map();
+  const start = tubes.map((tube) => tube.map((name) => {
+    if (!index.has(name)) {
+      index.set(name, names.length);
+      names.push(name);
+    }
+    return index.get(name);
+  }));
+
+  if (isSolved(start, capacity)) {
+    return { status: "solved", steps: 0, moves: [], explored: 0, elapsed_ms: 0, message: "已经排好了。" };
+  }
+
+  const found = searchPour(start, capacity);
+  if (found.status === "solved") {
+    const moves = found.moves.map(([from, to, color, amount]) => ({
+      from,
+      to,
+      color: names[color],
+      amount,
+    }));
+    return {
+      status: "solved",
+      steps: moves.length,
+      moves,
+      explored: found.explored,
+      elapsed_ms: found.elapsed_ms,
+      message: `最短 ${moves.length} 步。`,
+    };
+  }
+  if (found.status === "unsolvable") {
+    return {
+      status: "unsolvable",
+      steps: null,
+      moves: [],
+      explored: found.explored,
+      elapsed_ms: found.elapsed_ms,
+      message: `已搜完全部 ${found.explored} 个可达局面，确认无解。`,
+    };
+  }
+  return {
+    status: "timeout",
+    steps: null,
+    moves: [],
+    explored: found.explored,
+    elapsed_ms: found.elapsed_ms,
+    message: `搜了 ${found.explored} 个局面、用时 ${found.elapsed_ms} ms，仍未找到解。可能无解，也可能步数太长。`,
+  };
+}
+
+function isSolved(state, capacity) {
+  for (const tube of state) {
+    if (tube.length === 0) continue;
+    if (tube.length !== capacity) return false;
+    const color = tube[0];
+    for (let i = 1; i < tube.length; i += 1) {
+      if (tube[i] !== color) return false;
+    }
+  }
+  return true;
+}
+
+function stateKey(state) {
+  return state.map((tube) => tube.join(",")).sort().join("|");
+}
+
+function searchPour(start, capacity) {
+  const started = performance.now();
+  const deadline = started + TIME_LIMIT_MS;
+  const startKey = stateKey(start);
+  const parent = new Map([[startKey, null]]);
+  const seen = new Set([startKey]);
+  const queue = [[start, startKey]];
+  let head = 0;
+  let explored = 0;
+
+  while (head < queue.length) {
+    if (explored >= MAX_NODES || performance.now() >= deadline) {
+      return finish("timeout", [], explored, started);
+    }
+    const [state, key] = queue[head];
+    head += 1;
+    explored += 1;
+
+    let firstEmpty = -1;
+    for (let i = 0; i < state.length; i += 1) {
+      if (state[i].length === 0) {
+        firstEmpty = i;
+        break;
+      }
+    }
+
+    for (let source = 0; source < state.length; source += 1) {
+      const src = state[source];
+      if (src.length === 0) continue;
+      const color = src[src.length - 1];
+      let run = 1;
+      for (let cursor = src.length - 2; cursor >= 0 && src[cursor] === color; cursor -= 1) run += 1;
+      if (run === capacity && src.length === capacity) continue;
+
+      for (let target = 0; target < state.length; target += 1) {
+        if (source === target) continue;
+        const dst = state[target];
+        const space = capacity - dst.length;
+        if (space <= 0) continue;
+        if (dst.length === 0) {
+          if (target !== firstEmpty || run === src.length) continue;
+        } else if (dst[dst.length - 1] !== color) {
+          continue;
+        }
+
+        const amount = run < space ? run : space;
+        const next = state.slice();
+        next[source] = src.slice(0, src.length - amount);
+        const poured = dst.slice();
+        for (let n = 0; n < amount; n += 1) poured.push(color);
+        next[target] = poured;
+        const nextKey = stateKey(next);
+        if (seen.has(nextKey)) continue;
+        seen.add(nextKey);
+        parent.set(nextKey, [key, [source, target, color, amount]]);
+        if (isSolved(next, capacity)) {
+          return finish("solved", rebuild(parent, nextKey), explored, started);
+        }
+        queue.push([next, nextKey]);
+      }
+    }
+  }
+  return finish("unsolvable", [], explored, started);
+}
+
+function finish(status, moves, explored, started) {
+  return {
+    status,
+    moves,
+    explored,
+    elapsed_ms: Math.round(performance.now() - started),
+  };
+}
+
+function rebuild(parent, key) {
+  const moves = [];
+  let cursor = key;
+  while (parent.get(cursor) !== null) {
+    const [prev, move] = parent.get(cursor);
+    moves.push(move);
+    cursor = prev;
+  }
+  moves.reverse();
+  return moves;
+}
+
 function applyMove(tubes, move) {
   const next = cloneTubes(tubes);
   const chunk = next[move.from].splice(next[move.from].length - move.amount, move.amount);
@@ -326,42 +483,27 @@ async function solve() {
     return;
   }
   const request = ++ui.request;
+  const tubes = cloneTubes(ui.tubes);
+  const capacity = ui.capacity;
   ui.busy = true;
   setStatus("正在搜索最短步骤…");
   render();
-  try {
-    const response = await fetch("/api/solve", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ capacity: ui.capacity, tubes: ui.tubes }),
-    });
-    const result = await response.json();
-    if (request !== ui.request) return;
-    if (result.status === "solved") {
-      showSolution(result);
-      return;
-    }
-    const detail = result.explored
-      ? `搜索 ${result.explored} 个局面，用时 ${result.elapsed_ms} ms`
-      : "";
-    setStatus(localize(result.message || "没有得到结果。"), detail);
-    render();
-  } catch (error) {
-    if (request !== ui.request) return;
-    setStatus("没有连上求解服务。在站点目录运行 python solver/server.py 后再打开本页。");
-  } finally {
-    if (request === ui.request) {
-      ui.busy = false;
-      render();
-    }
+  await new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  });
+  if (request !== ui.request) return;
+  const result = solveWaterSort(tubes, capacity);
+  if (request !== ui.request) return;
+  ui.busy = false;
+  if (result.status === "solved") {
+    showSolution(result);
+    return;
   }
-}
-
-function localize(message) {
-  const ordered = COLORS.slice().sort((a, b) => b.id.length - a.id.length);
-  let text = message;
-  for (const color of ordered) text = text.replaceAll(color.id, color.name);
-  return text;
+  const detail = result.explored
+    ? `搜索 ${result.explored} 个局面，用时 ${result.elapsed_ms} ms`
+    : "";
+  setStatus(result.message, detail);
+  render();
 }
 
 function go(cursor) {
