@@ -513,6 +513,59 @@
 
     .works a:hover .work-title { color: var(--peach-soft); }
 
+    .work-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .work-desc {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .section-lede {
+      margin: 0.5rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-wrap: pretty;
+    }
+
+    .section-lede a {
+      color: var(--peach-soft);
+      text-underline-offset: 0.18em;
+    }
+
+    .notes {
+      margin: 1.1rem 0 0;
+      padding: 1.1rem 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .notes-fallback {
+      margin: 0;
+      color: var(--faint);
+      font-size: 0.92rem;
+    }
+
+    .notes-fallback a {
+      color: var(--peach-soft);
+      text-underline-offset: 0.18em;
+    }
+
+    /* giscus 会在 .notes 里插入自己的 iframe，去掉内层的双边框 */
+    .notes .giscus,
+    .notes .giscus-frame {
+      margin: 0;
+    }
+
+    /* 留言板加载出来后，隐藏加载前的兜底提示 */
+    .notes:has(.giscus) .notes-fallback { display: none; }
+
     .prose hr {
       margin: 2em 0;
       border: 0;

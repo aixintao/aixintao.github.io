@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 800" role="img">
+  <title>每周配置流程示意：从策划规划到脚本写表，再到人工验收</title>
+  <rect width="880" height="800" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">每周配置流程 · 数字均为示意</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">一次对话，替掉每周两小时的手工改表</text>
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M440 168 V198"/>
+    <path d="M440 262 V292"/>
+    <path d="M440 356 V386"/>
+    <path d="M440 450 V480"/>
+    <path d="M440 544 V574"/>
+  </g>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="210" y="104" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="132" fill="#f6f1ea" font-size="18">数值策划 · 周更礼包规划</text>
+    <text x="440" y="154" fill="#c9bdb2" font-size="13">一张 Excel：一周的档位、时长、次数与价格</text>
+
+    <rect x="210" y="198" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="226" fill="#f6f1ea" font-size="18">复制进对话</text>
+    <text x="440" y="248" fill="#c9bdb2" font-size="13">整段贴上规划，再写清这次要配哪一批</text>
+
+    <rect x="210" y="292" width="460" height="64" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="320" fill="#f6f1ea" font-size="18">模型整理成 JSON</text>
+    <text x="440" y="342" fill="#ffd2cb" font-size="13">档位、次数、价格逐项对齐；这一步不碰任何文件</text>
+
+    <rect x="210" y="386" width="460" height="64" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="414" fill="#f6f1ea" font-size="18">向人确认</text>
+    <text x="440" y="436" fill="#ffd2cb" font-size="13">列出要改的表、行与新旧值，等一句明确的「执行」</text>
+
+    <rect x="210" y="480" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="508" fill="#f6f1ea" font-size="18">Python 脚本读写配置表</text>
+    <text x="440" y="530" fill="#c9bdb2" font-size="13">只动 JSON 点名的行与列，改完保存</text>
+
+    <rect x="210" y="574" width="460" height="64" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="602" fill="#f6f1ea" font-size="18">快速验收并提交</text>
+    <text x="440" y="624" fill="#c9bdb2" font-size="13">对着规划核关键列，再抽查表里的实际值</text>
+  </g>
+  <rect x="36" y="664" width="808" height="100" rx="14" fill="#241e1a" stroke="#3a312b"/>
+  <text x="56" y="698" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="13">原来是每周两小时</text>
+  <text x="56" y="730" fill="#f6f1ea" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="15">现在是一分钟写提示词、十几分钟等它跑完、几分钟验收——省下的主要是注意力。</text>
+</svg>

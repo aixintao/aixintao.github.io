@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 配置直购礼包工具 · aixintao</title>
+  <meta name="description" content="在职作品：把数值策划的周更礼包规划交给大模型，整理成 JSON，确认后由 Python 脚本读写配置表。每周两小时的配置压到一分钟提示词加十几分钟等待，再快速验收。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/#guestbook">留言</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">在职作品 · 配置自动化 · 2026</p>
+    <h1>AI 配置直购礼包工具</h1>
+    <p class="prose">直购礼包按周更新。每周数值策划给出一份新的规划，执行策划照着它把配置表改一遍：改档位、改开放时间、改次数和价格，逐行核对。这项工作是纯手工的，做熟了也要两个小时左右，而且越是重复，越容易在某一行上走神。</p>
+    <p class="prose">这个工具把那段重复劳动交出去。大模型读走从 Excel 里复制出来的规划，转成一份 Python 脚本能直接读的 JSON；我确认无误后，脚本按 JSON 去读写配置表。现在每周的投入大致是一分钟写提示词、十几分钟等它跑、几分钟验收提交。</p>
+
+    <figure class="shot">
+      <img src="/works/gift-pack/flow.svg" alt="示意图：策划给的规划复制进对话，模型整理成 JSON，向人确认后由 Python 脚本读写配置表，最后人工验收">
+      <figcaption>每一步都对得上原来手工流程里的一段，只是把「照着改表」换成了「先写清楚要改什么」。</figcaption>
+    </figure>
+
+    <section class="prose" aria-labelledby="why-title">
+      <h2 id="why-title">为什么要拆成 JSON 这一步</h2>
+      <p>最省事的做法，是让模型直接去改表。我没有这么干，原因有三个。</p>
+      <p>第一，规划本身是人写的表格，格式常常不齐：有的档位合并了单元格，有的价格写成区间，有的周数只写「同上周」。模型要先把它读成结构化的东西，才能发现自己哪里不确定。这一步逼着它把「我不确定的」和「我确定要改的」分开。</p>
+      <p>第二，JSON 是人和机器都能一眼看懂的中间态。改错了，改 JSON 比改已经写坏的配置表便宜得多；要复查，看 JSON 也比看几千行表快。</p>
+      <p>第三，脚本因此只需要会一件事：读 JSON，按里面的坐标去读写表。它不需要理解业务，也不需要在运行时再做判断。逻辑越少，跑偏的机会越少。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="role-title">
+      <h2 id="role-title">给它一个身份，也给它一条线</h2>
+      <p>提示词里，模型被指定为「资深执行策划师」。这不只是为了说话的语气。给了这个身份，它更容易注意到执行策划才会在意的东西：这批礼包什么时候开、和上一期是不是接得上、哪些字段是策划填的、哪些是工具算的。它会主动问，而不是默认。</p>
+      <p>同时写死了几条禁止：不许直接操作 Excel，不许自己跑脚本，不许在确认前动手。模型能做的到 JSON 和一份改动说明为止。真正碰文件的只有 Python，真正按下开始键的只有我在对话里那句明确的「执行」。</p>
+      <figure class="shot">
+        <img src="/works/gift-pack/boundary.svg" alt="示意图：模型被指定为资深执行策划师，可以整理、提问、说明改动，不可以直接改表或在确认前执行；只有 Python 碰文件">
+        <figcaption>身份是「你可以判断」，边界是「判断完停下来」。两者缺一，这个工具都不敢用。</figcaption>
+      </figure>
+      <p>这条边界的价值在一次差点出事的时候体现出来：规划里有一处档位和上一期同名但含义不同，模型没有按名字直接覆盖，而是停下来指出来，等我去问策划。手工做这件事时，这大概率会被顺手改掉，然后在这一周全服玩家的礼包上体现。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="loop-title">
+      <h2 id="loop-title">一周是怎么跑的</h2>
+      <p>策划把规划发过来，我把整段内容复制进对话，附一句这周要配的批次。模型回两样东西：一份 JSON，一张要改的表和行的清单，每行标着旧值和新值。我对着规划扫一遍，有问题就让它改 JSON，没问题就回「执行」。</p>
+      <p>脚本这时才跑，读 JSON、定位行列、写入，跑完打印一份摘要：改了多少行、哪些行是新增、哪些行没找到匹配。我拿摘要和刚才的清单对一遍，再抽查表里的实际值，确认后提交。整个过程里，我不需要打开配置表去逐行看。</p>
+      <p>这中间要等十几分钟。听起来不算快，但这两小时原本是切碎的：一遍遍切表、找行、改数、对上一期，注意力很难连续。现在的等待是整块的，我可以去做别的事；真正需要我判断的，被集中到了开头和结尾两次。</p>
+    </section>
+
+    <section class="prose" aria-labelledby="limit-title">
+      <h2 id="limit-title">它的边界在哪里</h2>
+      <p>这个工具适合「规则稳定、输入有模板」的重复配置。规划一旦换了结构，比如新增了一类礼包或改了表的布局，JSON 的格式和脚本都要跟着改，这时候它是帮不上忙的，还是得人来。</p>
+      <p>它也不会替我做判断。哪些值合理、这周的档位是不是太密，仍然是我看。工具解决的是「照着改」这一段，不解决「该不该这么改」。把这两件事分开，是这个项目里我最想强调的一点。</p>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+</body>
+</html>

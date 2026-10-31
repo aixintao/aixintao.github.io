@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" role="img">
+  <title>模型的操作边界：整理与提议，不直接改表</title>
+  <rect width="880" height="620" rx="18" fill="#161311"/>
+  <text x="36" y="42" fill="#ffb1a3" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="14">操作边界示意</text>
+  <text x="36" y="78" fill="#f6f1ea" font-family="Palatino, Songti SC, serif" font-size="28">给它身份，也给它围栏</text>
+
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="36" y="112" width="808" height="68" rx="14" fill="#3a221c" stroke="#ff6b57"/>
+    <text x="440" y="142" fill="#f6f1ea" font-size="17">身份：资深执行策划师</text>
+    <text x="440" y="166" fill="#ffd2cb" font-size="13">懂档位、懂周期，知道哪些字段不能想当然</text>
+  </g>
+
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M440 180 V212"/>
+    <path d="M440 212 H262 V244"/>
+    <path d="M440 212 H618 V244"/>
+  </g>
+
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="36" y="248" width="452" height="196" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="262" y="282" fill="#f6f1ea" font-size="17">可以做的</text>
+    <text x="262" y="316" fill="#c9bdb2" font-size="13">读懂粘贴进来的规划，逐项对齐成 JSON</text>
+    <text x="262" y="346" fill="#c9bdb2" font-size="13">指出规划里缺的、互相矛盾的、拿不准的项</text>
+    <text x="262" y="376" fill="#c9bdb2" font-size="13">说明脚本将要改哪些表的哪些行列</text>
+    <text x="262" y="406" fill="#c9bdb2" font-size="13">在脚本跑完后，对着输出核对结果</text>
+
+    <rect x="508" y="248" width="336" height="196" rx="14" fill="#2a1414" stroke="#8a3b2f"/>
+    <text x="676" y="282" fill="#ffb1a3" font-size="17">不可以做的</text>
+    <text x="676" y="316" fill="#c9bdb2" font-size="13">直接打开或修改任何 Excel</text>
+    <text x="676" y="346" fill="#c9bdb2" font-size="13">在确认之前就执行脚本</text>
+    <text x="676" y="376" fill="#c9bdb2" font-size="13">凭经验补全规划里没有的数</text>
+    <text x="676" y="406" fill="#c9bdb2" font-size="13">一次改动扩大到 JSON 之外</text>
+  </g>
+
+  <g fill="none" stroke="#ff6b57" stroke-width="1.5">
+    <path d="M262 444 V476 H440"/>
+    <path d="M676 444 V476 H440"/>
+    <path d="M440 476 V500"/>
+    <path d="M434 490 L440 502 L446 490"/>
+  </g>
+
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="130" y="504" width="620" height="76" rx="14" fill="#241e1a" stroke="#3a312b"/>
+    <text x="440" y="536" fill="#f6f1ea" font-size="16">碰文件的只有 Python，触发它的只有那句「执行」</text>
+    <text x="440" y="562" fill="#c9bdb2" font-size="13">出问题时，改的是 JSON 或脚本，不是手滑过的表格。</text>
+  </g>
+</svg>
