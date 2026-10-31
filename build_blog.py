@@ -153,10 +153,11 @@ def shell(title: str, description: str, main: str, current: str = "") -> str:
 
     nav = "\n        ".join(
         [
-            item("/#names", "时间线", "names"),
             item("/blog/", "博客", "blog"),
             item("/#works", "作品", "works"),
             item("/#contact", "联系", "contact"),
+            item("/#names", "时间线", "names"),
+            item("/#guestbook", "留言", "guestbook"),
         ]
     )
     return f"""<!DOCTYPE html>
