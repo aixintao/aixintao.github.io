@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>水排序求解 · aixintao</title>
+  <meta name="description" content="摆试管、涂颜色，求水排序的最短倾倒步数。">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="/avatars/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/works/water-sort.css">
+</head>
+<body class="page solver">
+  <header class="wrap">
+    <nav class="nav" aria-label="页面">
+      <a class="brand" href="/#top">aixintao</a>
+      <ul class="nav-links">
+        <li><a href="/blog/">博客</a></li>
+        <li><a href="/#works" aria-current="page">作品</a></li>
+        <li><a href="/#contact">联系</a></li>
+        <li><a href="/#names">时间线</a></li>
+        <li><a href="/#guestbook">留言</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap page-main">
+    <a class="back" href="/#works">返回作品</a>
+    <p class="article-meta">Python · 广度优先搜索</p>
+    <h1>水排序求解</h1>
+    <p class="lede">添加试管，点一格涂上颜色。一次倾倒算一步，不管这一下倒出几格。目标是每支试管要么空着，要么装满同一种颜色。</p>
+    <p class="run">在站点目录运行 <code>python solver/server.py</code>，然后打开本页。</p>
+
+    <div class="panel">
+      <div class="toolbar">
+        <div class="capacity" role="group" aria-label="容量">
+          <span>容量</span>
+          <button class="btn icon-btn" type="button" id="cap-dec" aria-label="减少容量">−</button>
+          <strong id="cap-value">4</strong>
+          <button class="btn icon-btn" type="button" id="cap-inc" aria-label="增加容量">+</button>
+        </div>
+        <button class="btn" type="button" id="add-tube">添加试管</button>
+        <button class="btn" type="button" id="clear">清空</button>
+        <button class="btn" type="button" id="sample">载入示例</button>
+        <button class="btn primary" type="button" id="solve">求解</button>
+      </div>
+      <div class="palette" id="palette" role="group" aria-label="颜色"></div>
+      <p class="rule" id="rule"></p>
+
+      <div class="solver-layout">
+        <div>
+          <div class="board" id="board" aria-label="试管"></div>
+          <div class="playback" id="playback" hidden>
+            <button class="btn" type="button" id="to-start">回到开始</button>
+            <button class="btn" type="button" id="prev">上一步</button>
+            <button class="btn" type="button" id="play">播放</button>
+            <button class="btn" type="button" id="next">下一步</button>
+            <button class="btn" type="button" id="to-end">跳到完成</button>
+            <button class="btn" type="button" id="back-edit">返回编辑</button>
+          </div>
+          <p class="play-caption" id="caption"></p>
+        </div>
+        <aside>
+          <h2 class="side-title">步骤</h2>
+          <button class="jump" type="button" id="jump-start" hidden>初始局面</button>
+          <p class="empty-steps" id="empty-steps">求解后，这里按顺序列出每一次倾倒。</p>
+          <ol class="steps" id="steps"></ol>
+          <p class="status" id="status" aria-live="polite"></p>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">aixintao · acrossT.</div>
+  </footer>
+  <script src="/works/water-sort.js"></script>
+</body>
+</html>
